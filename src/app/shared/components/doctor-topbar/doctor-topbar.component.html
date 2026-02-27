@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand navbar-light bg-white shadow-sm px-4" style="border-bottom: 3px solid #3498db;">
+  <div class="container-fluid">
+    <!-- Menu toggle (optionnel) -->
+    <button class="btn btn-outline-primary me-3" type="button">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Barre de recherche -->
+    <div class="input-group" style="width: 350px;">
+      <span class="input-group-text bg-primary text-white border-0">
+        <i class="bi bi-search"></i>
+      </span>
+      <input type="text" class="form-control border-0 bg-light" placeholder="Rechercher un patient, dossier...">
+    </div>
+
+    <!-- Menu de droite -->
+    <div class="d-flex align-items-center ms-auto">
+      <!-- Notifications -->
+      <div class="dropdown me-3">
+        <button class="btn btn-light position-relative" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-bell text-primary"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            5
+          </span>
+        </button>
+      </div>
+
+      <!-- Messages -->
+      <div class="dropdown me-3">
+        <button class="btn btn-light position-relative" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-envelope text-primary"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+            3
+          </span>
+        </button>
+      </div>
+
+      <!-- Profil -->
+      <div class="dropdown">
+        <button class="btn btn-light d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+          <div class="bg-primary rounded-circle p-2 me-2">
+            <i class="bi bi-person-fill text-white"></i>
+          </div>
+          <div class="text-start">
+            <span class="d-block fw-bold">Dr. Ahmed Benani</span>
+            <small class="text-muted">Endocrinologue</small>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,111 @@
+<div class="sidebar">
+
+  <!-- Profil Admin -->
+  <div class="profile-section">
+    <div class="profile-avatar">
+      <i class="bi bi-shield-lock-fill"></i>
+    </div>
+    <div class="profile-info" *ngIf="!isCollapsed">
+      <h6>Admin Système</h6>
+      <span class="badge bg-success">Super Admin</span>
+    </div>
+  </div>
+
+  <!-- Menu Principal -->
+  <div class="menu-section">
+    <div class="menu-label" *ngIf="!isCollapsed">PRINCIPAL</div>
+    
+    <!-- Dashboard -->
+    <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-item">
+      <i class="bi bi-grid-1x2-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Dashboard</span>
+      <span class="badge bg-danger" *ngIf="!isCollapsed">3</span>
+    </a>
+
+    <!-- Gestion Utilisateurs -->
+    <div class="menu-label" *ngIf="!isCollapsed">UTILISATEURS</div>
+    
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-person-badge-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Médecins</span>
+      <span class="badge bg-warning" *ngIf="!isCollapsed">5</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-egg-fried"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Nutritionnistes</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-people-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Patients</span>
+      <span class="badge bg-info" *ngIf="!isCollapsed">1,234</span>
+    </a>
+
+    <!-- Gestion Médicale -->
+    <div class="menu-label" *ngIf="!isCollapsed">MÉDICAL</div>
+    
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-calendar-check-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Rendez-vous</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-chat-dots-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Consultations</span>
+      <span class="badge bg-success" *ngIf="!isCollapsed">12</span>
+    </a>
+
+    <!-- Espace Éducatif -->
+    <div class="menu-label" *ngIf="!isCollapsed">FORMATION</div>
+    
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-play-btn-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Vidéos & Documents</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-basket-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Plans Alimentaires</span>
+    </a>
+
+    <!-- Commerce -->
+    <div class="menu-label" *ngIf="!isCollapsed">COMMERCE</div>
+    
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-capsule-pill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Parapharmacie</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-truck"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Commandes</span>
+    </a>
+
+    <!-- Support -->
+    <div class="menu-label" *ngIf="!isCollapsed">SUPPORT</div>
+    
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Réclamations</span>
+      <span class="badge bg-warning" *ngIf="!isCollapsed">8</span>
+    </a>
+
+    <a class="menu-item" style="cursor: not-allowed;">
+      <i class="bi bi-geo-alt-fill"></i>
+      <span class="menu-text" *ngIf="!isCollapsed">Géolocalisation</span>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="sidebar-footer" *ngIf="!isCollapsed">
+    <div class="footer-item">
+      <i class="bi bi-gear"></i>
+      <span>Paramètres</span>
+    </div>
+    <div class="footer-item text-danger">
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Déconnexion</span>
+    </div>
+  </div>
+</div>

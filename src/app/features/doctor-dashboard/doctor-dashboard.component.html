@@ -1,0 +1,283 @@
+<div class="doctor-dashboard">
+  <!-- En-tête -->
+  <div class="dashboard-header">
+    <div>
+      <h1 class="page-title">
+        <i class="bi bi-heart-pulse-fill text-primary me-2"></i>
+        Espace Médecin
+      </h1>
+      <p class="page-subtitle">Suivi médical et consultations</p>
+    </div>
+    <div class="header-actions">
+      <div class="date-display">
+        <i class="bi bi-calendar3 me-2 text-primary"></i>
+        {{ currentDate | date:'EEEE d MMMM yyyy' }}
+      </div>
+      <button class="btn btn-outline-primary" (click)="refreshData()">
+        <i class="bi bi-arrow-repeat me-1"></i> Actualiser
+      </button>
+    </div>
+  </div>
+
+  <!-- Cartes de statistiques -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of statistics">
+      <div class="stat-icon" [ngStyle]="{'background': stat.bgColor}">
+        <i [class]="stat.icon"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-value">{{ stat.value }}</h3>
+        <p class="stat-label">{{ stat.label }}</p>
+        <span class="stat-trend" [class.positive]="stat.trend > 0">
+          <i class="bi" [ngClass]="stat.trend > 0 ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+          {{ stat.trend }}% vs hier
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section principale avec 2 colonnes -->
+  <div class="row g-4 mb-4">
+    <!-- Colonne gauche - Rendez-vous du jour -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-calendar-check-fill text-primary me-2"></i>
+              Rendez-vous du Jour
+              <span class="badge bg-primary ms-2">{{ todayAppointments.length }}</span>
+            </h5>
+            <a href="#" class="view-all-link">Voir agenda <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="appointments-list">
+            <div *ngFor="let apt of todayAppointments" class="appointment-item">
+              <div class="appointment-time">
+                <span class="time">{{ apt.time }}</span>
+              </div>
+              <div class="appointment-content">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6 class="mb-1">{{ apt.patientName }} <span class="text-muted">({{ apt.age }} ans)</span></h6>
+                    <p class="mb-1">{{ apt.type }} - {{ apt.reason }}</p>
+                    <small class="text-muted">
+                      <i class="bi bi-calendar me-1"></i> Dernière visite: {{ apt.lastVisit || 'Première visite' }}
+                    </small>
+                  </div>
+                  <div class="d-flex flex-column align-items-end">
+                    <span class="badge mb-2" [ngClass]="getStatusClass(apt.status)">
+                      {{ apt.status === 'confirmed' ? 'Confirmé' : apt.status === 'pending' ? 'En attente' : apt.status === 'urgent' ? 'Urgent' : 'En ligne' }}
+                    </span>
+                    <button class="btn btn-sm btn-primary" (click)="startConsultation(apt)">
+                      <i class="bi bi-play-fill me-1"></i> Démarrer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analyses en attente -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-file-medical-fill text-primary me-2"></i>
+              Analyses en Attente
+            </h5>
+            <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedPeriod">
+              <option value="all">Toutes</option>
+              <option value="urgent">Urgentes</option>
+              <option value="pending">En cours</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Type d'analyse</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let analysis of pendingAnalyses">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="patient-avatar bg-primary bg-opacity-10 me-2">
+                        <i class="bi bi-person-circle text-primary"></i>
+                      </div>
+                      {{ analysis.patientName }}
+                    </div>
+                  </td>
+                  <td>
+                    <span *ngIf="analysis.type.includes('CNN')" class="badge bg-info">Deep Learning</span>
+                    <span *ngIf="analysis.type.includes('ML')" class="badge bg-success">Machine Learning</span>
+                    <span *ngIf="!analysis.type.includes('CNN') && !analysis.type.includes('ML')" class="badge bg-secondary">Standard</span>
+                    {{ analysis.type }}
+                  </td>
+                  <td>{{ analysis.date | date:'dd/MM' }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="getStatusClass(analysis.status)">
+                      {{ analysis.status === 'urgent' ? 'Urgent' : analysis.status === 'pending' ? 'En attente' : 'Traité' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" (click)="viewAnalysis(analysis)">
+                      <i class="bi bi-eye"></i> Analyser
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite -->
+    <div class="col-lg-4">
+      <!-- Demandes de consultation en ligne -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+          <h5 class="mb-0">
+            <i class="bi bi-chat-dots-fill text-primary me-2"></i>
+            Demandes en Ligne
+            <span class="badge bg-danger ms-2">{{ onlineRequests.length }}</span>
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="requests-list">
+            <div *ngFor="let request of onlineRequests" class="request-item">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="mb-1">{{ request.patientName }} <span class="text-muted">({{ request.age }} ans)</span></h6>
+                    <span class="badge" [ngClass]="getUrgencyBadge(request.urgency)">
+                      {{ request.urgency === 'high' ? 'Urgent' : request.urgency === 'medium' ? 'Moyen' : 'Faible' }}
+                    </span>
+                  </div>
+                  <p class="mb-1">{{ request.reason }}</p>
+                  <small class="text-muted">{{ request.time }}</small>
+                  <div class="mt-2">
+                    <button class="btn btn-sm btn-primary me-2" (click)="acceptRequest(request)">
+                      <i class="bi bi-check-lg"></i> Accepter
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphique patients -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+          <h5 class="mb-0">
+            <i class="bi bi-graph-up text-primary me-2"></i>
+            Consultations
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            <div class="d-flex align-items-end justify-content-between" style="height: 150px;">
+              <div *ngFor="let value of weeklyPatients; let i = index" class="chart-bar-container">
+                <div class="chart-bar-wrapper">
+                  <div class="chart-bar" 
+                       [style.height.px]="(value / maxPatients) * 120"
+                       [style.background]="'linear-gradient(180deg, #3498db, #2980b9)'">
+                  </div>
+                </div>
+                <small class="text-muted">{{ weekDays[i] }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alertes médicales -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+          <h5 class="mb-0">
+            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+            Alertes
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="alerts-list">
+            <div *ngFor="let alert of medicalAlerts" class="alert-item">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="mb-1">{{ alert.patient }}</h6>
+                    <span class="badge" [ngClass]="{
+                      'bg-danger': alert.severity === 'high',
+                      'bg-warning': alert.severity === 'medium',
+                      'bg-info': alert.severity === 'low'
+                    }">
+                      {{ alert.severity === 'high' ? 'Haute' : alert.severity === 'medium' ? 'Moyenne' : 'Basse' }}
+                    </span>
+                  </div>
+                  <p class="mb-1">{{ alert.alert }}</p>
+                  <small class="text-muted">{{ alert.time }}</small>
+                  <div class="mt-2">
+                    <button class="btn btn-sm btn-outline-primary" (click)="handleAlert(alert)">
+                      <i class="bi bi-check2"></i> Traiter
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Derniers messages -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-envelope-fill text-primary me-2"></i>
+          Messages Récents
+        </h5>
+        <a href="#" class="view-all-link">Voir tous <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let msg of recentMessages">
+          <div class="message-card" [class.unread]="msg.unread">
+            <div class="d-flex align-items-center mb-2">
+              <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                <i class="bi bi-person-fill text-primary"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">{{ msg.from }}</h6>
+                <small class="text-muted">{{ msg.time }}</small>
+              </div>
+              <span *ngIf="msg.unread" class="badge bg-danger ms-auto">Nouveau</span>
+            </div>
+            <p class="mb-0">{{ msg.message }}</p>
+            <button class="btn btn-sm btn-link text-primary mt-2 p-0" (click)="viewMessage(msg)">
+              Lire la suite <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

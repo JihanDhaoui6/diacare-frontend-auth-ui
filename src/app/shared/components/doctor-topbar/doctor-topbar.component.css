@@ -1,0 +1,74 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 10px 20px;
+}
+
+.btn-outline-primary {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border-color: #2980b9;
+  color: white;
+}
+
+.btn-light {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s;
+}
+
+.btn-light:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.input-group {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.input-group-text {
+  border-radius: 10px 0 0 10px;
+}
+
+.form-control {
+  border-radius: 0 10px 10px 0;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #3498db;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 3px 6px;
+}
+
+/* Animation des notifications */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.position-absolute {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .input-group {
+    width: 200px !important;
+  }
+  
+  .btn-light span {
+    display: none;
+  }
+}

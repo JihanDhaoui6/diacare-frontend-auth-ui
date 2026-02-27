@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.sidebar-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+/* Option pour responsive - si la sidebar se cache sur mobile */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
