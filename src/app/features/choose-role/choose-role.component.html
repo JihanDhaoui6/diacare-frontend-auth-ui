@@ -1,0 +1,19 @@
+<div class="choose-role-page">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Choisissez votre rôle</h2>
+      <p class="text-muted">
+        Sélectionnez votre espace pour continuer vers l’authentification
+      </p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+     <div class="role-card" *ngFor="let role of roles" (click)="selectRole(role.name.toLowerCase())">
+  <img [src]="role.image" [alt]="role.name">
+  <i [class]="role.icon"></i>
+  <h3>{{ role.name }}</h3>
+  <p>{{ role.description }}</p>
+</div>
+    </div>
+  </div>
+</div>

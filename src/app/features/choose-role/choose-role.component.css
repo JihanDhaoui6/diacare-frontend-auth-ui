@@ -1,0 +1,30 @@
+.choose-role-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa, #eef6ff);
+  display: flex;
+  align-items: center;
+}
+
+.role-card {
+  background: #fff;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.role-card:hover {
+  transform: translateY(-8px);
+  border-color: #0d6efd;
+}
+
+.role-icon {
+  font-size: 60px;
+  color: #0d6efd;
+}
+
+.role-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
