@@ -1,27 +1,81 @@
-# DiacareFrontend
+# 💻 DiaCare Frontend - Authentication UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+## 📌 Project Overview
 
-## Development server
+This repository contains the frontend implementation of the **DiaCare platform authentication system**, built with Angular.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+It provides a modern UI for multi-role authentication and account activation.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Features
 
-## Build
+### 🔐 Authentication System
+- Signup & Login forms
+- Multi-role support:
+  - Admin
+  - Patient
+  - Doctor
+  - Nutritionist
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+### 📧 Email Activation
+- Account activation via email link
+- Displays success and error messages
+- Secure activation workflow
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+### 👨‍⚕️ Doctor & Nutritionist Registration
+- Upload medical certificate (PDF/Image)
+- Form validation
+- Pending approval by admin
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+### 🧾 Form Validation
+- Reactive Forms
+- Field validation (email, password, required fields)
+- Error handling and user feedback
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+### 🔗 Backend Integration
+- REST API integration with Spring Boot backend
+- Handles:
+  - Authentication requests
+  - File upload (multipart/form-data)
+  - Activation responses
+
+---
+
+## 🛠️ Technologies Used
+- Angular 18
+- TypeScript
+- Reactive Forms
+- HttpClient
+- HTML / CSS
+
+---
+
+## 📂 Project Structure
+- Auth Module:
+  - doctor-auth
+  - login
+  - signup
+- Feature-based architecture
+
+---
+
+## 📌 Note
+
+This project is part of a **group academic project**.
+
+My contribution:
+👉 Implementation of the authentication UI and integration with backend APIs.
+
+---
+
+## 👩‍💻 Author
+- Jihan Dh
