@@ -76,6 +76,18 @@ My contribution:
 👉 Implementation of the authentication UI and integration with backend APIs.
 
 ---
+## 📸 Screenshots
 
+### 🔐 Authentification Page
+![Login](assets/users.png)
+
+### 📝 Nutritionist Page
+![Signup](assets/nutri.png)
+
+### 📊 Patient Page
+![Dashboard](assets/patient.png)
+
+### 📊 Doctor page
+![Dashboard](assets/doctor.png)
 ## 👩‍💻 Author
 - Jihan Dh
