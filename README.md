@@ -78,7 +78,7 @@ My contribution:
 ---
 ## 📸 Screenshots
 
-### 🔐 Authentification Page
+### 🔐 Authentification Page.
 ![Login](assets/users.png)
 
 ### 📝 Nutritionist Page
