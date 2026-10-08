@@ -19,7 +19,7 @@ It provides a modern UI for multi-role authentication and account activation.
   - Nutritionist
 
 ---
---
+
 -
 
 ### 📧 Email Activation
